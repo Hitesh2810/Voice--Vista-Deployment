@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" type="png" href="images/logoimg.jpg">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Comaptible" content="IE=edge">
+	<title>Voice-Vista</title>
+	<meta name="desciption" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://kit.fontawesome.com/5833e0d676.js" crossorigin="anonymous"></script>
+	
+
+</head>
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+</script>
+<body>
+<!-- Navigation Bar -->
+	<header id="header">
+		<nav class="colour1">
+			<div class="logo"><img src="image.png" alt="logo"></div>
+			<h1 class="title">Voice-Vista</h1>
+			<ul>
+				<li><a  href=""><i class="fas fa-home"></i> Home</a></li>
+				<li><a href="Services/Services_en.html"><i class="fas fa-layer-group"></i> Courses</a></li>
+				
+
+				<div class="navbar">
+					<div class="dropdown">
+					  
+					  <div class="dropdown-content">
+						<a href="#"><i class="fas fa-edit"></i> Question Bank</a>
+						<a href="#"><i class="fas fa-book-open"></i> Solutions</a>
+						<a href="quiz.html"><i class="fas fa-tasks"></i> Take Quiz</a>
+						<a href="#"><i class="fas fa-question-circle"></i> Doubts</a>
+					  </div>
+					</div>
+				  </div>
+				  <li><a href="#services_section"><i class="fas fa-graduation-cap"></i> Progress</a></li>
+				  <li><a href="#contactus_section"><i class="fab fa-discourse"></i> Contact Us</a></li>
+				  <li><a href="#contactus_section"><i class="fas fa-hand-holding-usd"></i> Donation</a></li>
+			</ul>
+			<div class="srch"><input type="text" class="search" placeholder="Search here..."><img src="images/icon/search.png" alt="search" ></div>
+			<a class="get-started" href="sign-up form-final.html">Get Started</a>
+			
+		</nav>
+		<div class="head-container">
+			<div class="quote">
+				<p>The beautiful thing about learning is that nobody can take it away from you</p>
+				<h5>Education is the process of facilitating learning, or the acquisition of knowledge, skills, values, beliefs, and habits. Educational methods include teaching, training, storytelling, discussion and directed research!</h5>
+				
+				<div class="play">
+					<span  onclick="currentSlide(1)"><img src="images/icon/play.png" alt="play"></span><a href="#" > Watch Now</a>
+				</div>
+
+			</div>
+
+			<div class="svg-image">
+				<img src="images/extra/svg1.jpg" alt="svg">
+			</div>
+		</div>
+		<!-- Slideshow container -->
+<div class="slideshow-container">
+
+	<!-- Full-width images with number and caption text -->
+	<div class="mySlides fade">
+	  <div class="numbertext">1 / 3</div>
+	  <img src="images/extra/b1.jpg" style="width:100%">
+	  <div class="text">Caption Text</div>
+	</div>
+  
+	<div class="mySlides fade">
+	  <div class="numbertext">2 / 3</div>
+	  <img src="images/extra/b2.jpg" style="width:100%">
+	  <div class="text">Caption Two</div>
+	</div>
+  
+	<div class="mySlides fade">
+	  <div class="numbertext">3 / 3</div>
+	  <img src="images/extra/b3.jpg" style="width:100%">
+	  <div class="text">Caption Three</div>
+	</div>
+  
+	<!-- Next and previous buttons -->
+	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+	<a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  <br>
+  
+
+		
+	</header>
+
+
+
+
+<!-- Sliding Information -->
+	<marquee style="background: linear-gradient(to right, #FA4B37, #DF2771); margin-top: 50px;" direction="left" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="20"><div class="marqu">“Education is the passport to the future, for tomorrow belongs to those who prepare for it today.” “Your attitude, not your aptitude, will determine your altitude.” “If you think education is expensive, try ignorance.” “The only person who is educated is the one who has learned how to learn …and change.”</div></marquee>
+
+<!-- FOOTER -->
+	<footer>
+		<div class="footer-container">
+			<div class="left-col">
+				<img src="images/logoimg.jpg" style="width: 200px;">
+				<div class="logo"></div>
+				<div class="social-media">
+					<a href="#"><img src="images/icon\fb.png"></a>
+					<a href="#"><img src="images/icon\insta.png"></a>
+					<a href="#"><img src="images/icon\tt.png"></a>
+					<a href="#"><img src="images/icon\ytube.png"></a>
+					<a href="#"><img src="images/icon\linkedin.png"></a>
+				</div><br><br>
+				
+				<br><p><img src="images/icon/location.png"> Amrita School of Engineering <br>Bangalore, Karnataka-560008</p><br>
+				<p><img src="images/icon/phone.png"> +91-7339228840<br><img src="images/icon/mail.png">&nbsp; hiteshkumarsairam@gmail.com</p>
+			</div>
+			<div class="right-col">
+				<h1 style="color: rgb(255, 255, 255)">Our Newsletter</h1>
+				<div class="border"></div><br>
+				<p>Enter Your Email to get our News and updates.</p>
+				<form class="newsletter-form">
+					<input class="txtb" type="email" placeholder="Enter Your Email">
+					<input class="btn" type="submit" value="Submit">
+				</form>
+			</div>
+		</div>
+	</footer>
+	<script>
+		function speak(text, lang = 'en-US') {
+			const speech = new SpeechSynthesisUtterance(text);
+			speech.lang = lang;
+			speech.rate = 1;
+			speech.pitch = 1;
+			window.speechSynthesis.speak(speech);
+		}
+
+		const voiceRecognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+		voiceRecognition.interimResults = false;
+		voiceRecognition.maxAlternatives = 1;
+
+		let selectedLanguage = 'en';
+		let listeningForLanguage = true;
+
+		window.onload = function () {
+			setTimeout(() => {
+				speak(" Welcome to Voice vista. Say 1 for English, 2 for Tamil, 3 for Hindi, 4 for Telugu, 5 for Malayalam, 6 for Bengali.");
+				voiceRecognition.lang = 'en-US';
+				startListening();
+			}, 3000);
+		};
+
+		function startListening() {
+			voiceRecognition.start();
+		}
+
+		voiceRecognition.onresult = function (event) {
+			const command = event.results[0][0].transcript.trim().toLowerCase();
+
+			if (listeningForLanguage) {
+				let followUpMessage = {
+					'en': "Now say a command such as About us, Services, or Login.",
+					'ta': "இப்போது 'அபௌட் அஸ்', 'சேவைகள்' அல்லது 'லாகின்' போன்ற கட்டளைகளை கூறுங்கள்.",
+					'hi': "अब कोई कमांड कहें जैसे 'अबाउट अस', 'सेवाएं' या 'लॉगिन'।",
+					'te': "ఇప్పుడు 'అబౌట్ అస్', 'సేవలు' లేదా 'లాగిన్' వంటి ఆదేశాన్ని చెప్పండి.",
+					'ml': "ഇപ്പോൾ 'അബൌട്ട് അസ്സ്', 'സേവനങ്ങൾ' അല്ലെങ്കിൽ 'ലോഗിൻ' പോലെയുള്ള കമാൻഡുകൾ പറയുക.",
+					'bn': "এখন বলুন 'অ্যাবাউট আস', 'সার্ভিসেস' বা 'লগইন' এর মতো কমান্ড।"
+				};
+
+				if (command.includes('1')) {
+					selectedLanguage = 'en';
+					speak("Good Morning. Welcome to this website.");
+				} else if (command.includes('2')) {
+					selectedLanguage = 'ta';
+					speak("காலை வணக்கம். இந்த இணையதளத்திற்கு வரவேற்கிறோம்.", 'ta-IN');
+				} else if (command.includes('3')) {
+					selectedLanguage = 'hi';
+					speak("सुप्रभात। इस वेबसाइट पर आपका स्वागत है।", 'hi-IN');
+				} else if (command.includes('4')) {
+					selectedLanguage = 'te';
+					speak("శుభోదయం. ఈ వెబ్‌సైట్‌కు స్వాగతం.", 'te-IN');
+				} else if (command.includes('5')) {
+					selectedLanguage = 'ml';
+					speak("സുപ്രഭാതം. ഈ വെബ്സൈറ്റിലേക്ക് സ്വാഗതം.", 'ml-IN');
+				} else if (command.includes('6')) {
+					selectedLanguage = 'bn';
+					speak("সুপ্রভাত. এই ওয়েবসাইটে স্বাগতম।", 'bn-IN');
+				} else {
+					speak("Command not recognized. Say 1 for English, 2 for Tamil, 3 for Hindi, 4 for Telugu, 5 for Malayalam, or 6 for Bengali.");
+					return;
+				}
+				listeningForLanguage = false;
+				setTimeout(() => speak(followUpMessage[selectedLanguage], selectedLanguage === 'en' ? 'en-US' : selectedLanguage + '-IN'), 2000);
+			} else {
+				navigateByVoice(command);
+			}
+		};
+
+		voiceRecognition.addEventListener('end', () => {
+			voiceRecognition.start();
+		});
+function navigateByVoice(command) {
+    if (selectedLanguage === 'en' && command.includes('about us')) {
+        window.location.href = 'About_en.html';
+    } else if (selectedLanguage === 'hi' && command.includes('अबाउट अस')) {
+        window.location.href = 'About_hi.html';
+    } else if (selectedLanguage === 'ta' && command.includes('அபௌட் அஸ்')) {
+        window.location.href = 'About_ta.html';
+    } else if (selectedLanguage === 'te' && command.includes('అబౌట్ అస్')) {
+        window.location.href = 'About_te.html';
+    } else if (selectedLanguage === 'ml' && command.includes('അബൌട്ട് അസ്സ്')) {
+        window.location.href = 'About_ml.html';
+    } else if (selectedLanguage === 'bn' && command.includes('অ্যাবাউট আস')) {
+        window.location.href = 'About_bn.html';
+	}else if (selectedLanguage === 'en' && command.includes('login')) {
+        window.location.href = 'sign-up form-final.html';	
+
+    } else if (selectedLanguage === 'en' && command.includes('course page')) {
+        window.location.href = 'Services/Services_en.html';
+    } else if (selectedLanguage === 'hi' && command.includes('course page')) {
+        window.location.href = 'Services/Services_hi.html';
+    } else if (selectedLanguage === 'ta' && command.includes('course page')) {
+        window.location.href = 'Services/Services_taa.html';
+    } else if (selectedLanguage === 'te' && command.includes('course page')) {
+        window.location.href = 'Services/Services_te.html';
+    } else if (selectedLanguage === 'ml' && command.includes('course page')) {
+        window.location.href = 'Services/Services_ml.html';
+    } else if (selectedLanguage === 'bn' && command.includes('course page')) {
+        window.location.href = 'Services/Services_bn.html';
+
+    } else if (selectedLanguage === 'en' && command.includes('blog')) {
+        window.location.href = 'Blog_en.html';
+    } else if (selectedLanguage === 'hi' && command.includes('ब्लॉग')) {
+        window.location.href = 'Blog_hi.html';
+    } else if (selectedLanguage === 'ta' && command.includes('ப்ளாக்')) {
+        window.location.href = 'Blog_ta.html';
+    } else if (selectedLanguage === 'te' && command.includes('బ్లాగ్')) {
+        window.location.href = 'Blog_te.html';
+    } else if (selectedLanguage === 'ml' && command.includes('ബ്ലോഗ്')) {
+        window.location.href = 'Blog_ml.html';
+    } else if (selectedLanguage === 'bn' && command.includes('ব্লগ')) {
+        window.location.href = 'Blog_bn.html';
+
+    } else {
+        speak("Command not recognized or does not match the selected language. Try again.");
+    }
+}
+
+	</script>
+
+</body>
+</html>
