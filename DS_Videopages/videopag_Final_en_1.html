@@ -1,0 +1,161 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Grid</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white" style="background-color: white;">
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6">Video Grid</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Video Item 1 -->
+      <div class="bg-gray-800 p-4 rounded-lg" style="background-color: pink;">
+        <video controls class="rounded-lg mb-2" width="320" height="180">
+          <source src="F:\Amrita\6th Semester\Software Engineering\Project\Website\English Videos\Data Science in 8 Minutes _ Data Science for Beginners _ What is Data Science_ _ Edureka.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h3 class="text-lg font-bold">Video Title 1</h3>
+        <p class="text-gray-400">1M views • 1 month ago</p>
+        <p class="text-gray-400">Channel Name</p>
+      </div>
+      <!-- Video Item 2 -->
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <video controls class="rounded-lg mb-2" width="320" height="180">
+          <source src="path/to/your/video2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h3 class="text-lg font-bold">Video Title 2</h3>
+        <p class="text-gray-400">2M views • 2 months ago</p>
+        <p class="text-gray-400">Channel Name</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeVideo = null;
+  
+    window.onload = function () {
+      speak("Which video to be played?");
+      setTimeout(() => {
+        listenForCommand();
+      }, 3000);
+    };
+  
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      window.speechSynthesis.speak(utterance);
+    }
+  
+    function listenForCommand() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+  
+      recognition.onresult = function (event) {
+        const result = event.results[0][0].transcript.toLowerCase().trim();
+        console.log("User said:", result);
+  
+        const videos = document.querySelectorAll("video");
+  
+        if (result.includes("go back")) {
+          speak("Going back to service page.");
+          window.location.href = "service.html";
+          return;
+        }
+  
+        if (result.includes("login")) {
+          speak("Playing first video");
+          activeVideo = videos[0];
+          activeVideo.play().then(() => {
+            listenForPauseOrPlay();
+          }).catch(error => {
+            console.error("Play error:", error);
+            speak("Your browser blocked autoplay. Please enable autoplay.");
+          });
+          return;
+        }
+  
+        const match = result.match(/\d+/);
+        if (match) {
+          const index = parseInt(match[0]) - 1;
+          if (index >= 0 && index < videos.length) {
+            speak(`Playing video ${index + 1}`);
+            activeVideo = videos[index];
+            activeVideo.play().then(() => {
+              listenForPauseOrPlay();
+            }).catch(error => {
+              console.error("Play error:", error);
+              speak("Autoplay is blocked. Please enable it.");
+            });
+          } else {
+            speak("That video number does not exist.");
+          }
+        } else {
+          speak("I didn't understand. Please try again.");
+        }
+      };
+  
+      recognition.onerror = function (event) {
+        console.error("Speech recognition error:", event.error);
+        speak("There was an error with speech recognition.");
+      };
+  
+      recognition.start();
+    }
+  
+    function listenForPauseOrPlay() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+  
+      recognition.onresult = function (event) {
+        const result = event.results[0][0].transcript.toLowerCase().trim();
+        console.log("User said:", result);
+  
+        if (result.includes("go back")) {
+          speak("Going back to service page.");
+          window.location.href = "../Services/Services_en.htm";
+          return;
+        }
+  
+        if (result.includes("ml") && activeVideo && !activeVideo.paused) {
+          speak("Pausing the video.");
+          activeVideo.pause();
+        } else if (result.includes("m") && activeVideo && activeVideo.paused) {
+          speak("Resuming the video.");
+          activeVideo.play().catch(error => {
+            console.error("Play error:", error);
+            speak("Unable to resume the video.");
+          });
+        }
+  
+        // Keep listening
+        listenForPauseOrPlay();
+      };
+  
+      recognition.onerror = function (event) {
+        console.error("Speech recognition error:", event.error);
+        speak("Speech recognition error. Retrying.");
+        listenForPauseOrPlay(); // Retry
+      };
+  
+      recognition.start();
+    }
+  
+    document.querySelectorAll("video").forEach(video => {
+      video.onplay = function () {
+        activeVideo = video;
+        setTimeout(() => {
+          listenForPauseOrPlay();
+        }, 1000);
+      };
+    });
+  </script>
+  
+</body>
+</html>
