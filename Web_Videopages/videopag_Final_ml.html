@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Grid</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white" style="background-color: white;">
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6">Video Grid</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Video Item 1 -->
+      <div class="bg-gray-800 p-4 rounded-lg" style="background-color: pink;">
+        <video controls class="rounded-lg mb-2" width="320" height="180">
+          <source src="F:\Amrita\6th Semester\Software Engineering\Project\Website\Malayalam Videos\web.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h3 class="text-lg font-bold">Video Title 1</h3>
+        <p class="text-gray-400">1M views • 1 month ago</p>
+        <p class="text-gray-400">Channel Name</p>
+      </div>
+      <!-- Video Item 2 -->
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <video controls class="rounded-lg mb-2" width="320" height="180">
+          <source src="" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h3 class="text-lg font-bold">Video Title 2</h3>
+        <p class="text-gray-400">2M views • 2 months ago</p>
+        <p class="text-gray-400">Channel Name</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  let activeVideo = null;
+
+  window.onload = function () {
+    speak("ഏത് വീഡിയോ ആരംഭിക്കണം?", () => {
+      setTimeout(() => {
+        listenForCommand();
+      }, 500);
+    });
+  };
+
+  function speak(text, callback = null) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ml-IN";
+    window.speechSynthesis.speak(utterance);
+    utterance.onend = function () {
+      if (callback) callback();
+    };
+  }
+
+  function listenForCommand() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = function (event) {
+      const result = event.results[0][0].transcript.toLowerCase().trim();
+      console.log("User said:", result);
+
+      const videos = document.querySelectorAll("video");
+
+      if (result.includes("go back")) {
+        speak("സേവന പേജിലേക്ക് മടങ്ങുന്നു.", () => {
+          window.location.href = "../Services/Services_ml.html";
+        });
+        return;
+      }
+
+      if (result.includes("login")) {
+        speak("ആദ്യ വീഡിയോ ആരംഭിക്കുന്നു.", () => {
+          activeVideo = videos[0];
+          activeVideo.play().then(() => {
+            listenForPauseOrPlay();
+          }).catch(error => {
+            console.error("Play error:", error);
+            speak("നിങ്ങളുടെ ബ്രൗസറിൽ പ്ളേ തടഞ്ഞിരിക്കുന്നു. ദയവായി അനുവദിക്കുക.");
+          });
+        });
+        return;
+      }
+
+      const lectureMatch = result.match(/lecture\s*(\d+)/);
+      const directMatch = result.match(/\d+/);
+
+      let index = -1;
+      if (lectureMatch) {
+        index = parseInt(lectureMatch[1]) - 1;
+      } else if (directMatch) {
+        index = parseInt(directMatch[0]) - 1;
+      }
+
+      if (index >= 0 && index < videos.length) {
+        speak(`വീഡിയോ ${index + 1} ആരംഭിക്കുന്നു.`, () => {
+          activeVideo = videos[index];
+          activeVideo.play().then(() => {
+            listenForPauseOrPlay();
+          }).catch(error => {
+            console.error("Play error:", error);
+            speak("തന്നെ പ്ളേ ചെയ്യുന്നതിന് അനുമതി നിഷേധിച്ചു.");
+          });
+        });
+      } else {
+        speak("അത്തരമൊരു വീഡിയോ നമ്പർ ലഭ്യമല്ല.", () => {
+          setTimeout(() => {
+            listenForCommand();
+          }, 500);
+        });
+      }
+    };
+
+    recognition.onerror = function (event) {
+      console.error("Speech recognition error:", event.error);
+      speak("വോയ്സ് റെക്കഗ്നിഷനിൽ പിശക് ഉണ്ടായി. വീണ്ടും ശ്രമിക്കുന്നു.", () => {
+        setTimeout(() => {
+          listenForCommand();
+        }, 500);
+      });
+    };
+
+    recognition.start();
+  }
+
+  function listenForPauseOrPlay() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = function (event) {
+      const result = event.results[0][0].transcript.toLowerCase().trim();
+      console.log("User said:", result);
+
+      if (result.includes("go back")) {
+        speak("സേവന പേജിലേക്ക് മടങ്ങുന്നു.", () => {
+          window.location.href = "../Services/Services_ml.html";
+        });
+        return;
+      }
+
+      if (result.includes("ml") && activeVideo && !activeVideo.paused) {
+        speak("വീഡിയോ നിർത്തുന്നു.", () => {
+          activeVideo.pause();
+          listenForPauseOrPlay();
+        });
+      } else if (result.includes("m") && activeVideo && activeVideo.paused) {
+        speak("വീഡിയോ തുടരുന്നു.", () => {
+          activeVideo.play().then(() => {
+            listenForPauseOrPlay();
+          }).catch(error => {
+            console.error("Play error:", error);
+            speak("വീഡിയോ തുടരാൻ കഴിഞ്ഞില്ല.", () => {
+              listenForPauseOrPlay();
+            });
+          });
+        });
+      } else {
+        // If unrecognized command, keep listening
+        listenForPauseOrPlay();
+      }
+    };
+
+    recognition.onerror = function (event) {
+      console.error("Speech recognition error:", event.error);
+      speak("വോയിസ് റെക്കഗ്നിഷൻ പിശക്. വീണ്ടും ശ്രമിക്കുന്നു.", () => {
+        listenForPauseOrPlay();
+      });
+    };
+
+    recognition.start();
+  }
+
+  document.querySelectorAll("video").forEach(video => {
+    video.onplay = function () {
+      activeVideo = video;
+      setTimeout(() => {
+        listenForPauseOrPlay();
+      }, 1000);
+    };
+  });
+  </script>
+</body>
+</html>
